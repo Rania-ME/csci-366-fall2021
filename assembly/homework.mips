@@ -1,2 +1,32 @@
 ;; TODO - implement counting up from 1 to 10
 ;; in MIPS assembly, code only
+.data
+.text
+.globl main
+
+main:
+
+	li	$8, 1
+	li	$9, 10
+
+	printNumber:
+
+		bgt	$8, $9, exitLabel #branch to exitLabel if $8>10
+
+		li	$v0, 1
+
+		move	$a0, $8 #print the value inv $8
+
+		syscall
+
+		Addi $8, $8, 1
+
+		b printNumber
+
+	b exitLabel   
+
+exitLabel:
+
+li $v0, 10
+
+syscall
