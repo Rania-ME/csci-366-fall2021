@@ -3,7 +3,7 @@ package edu.montana.csci.csci366.archivecat.archiver;
 import edu.montana.csci.csci366.archivecat.archiver.jobs.AbstractDownloadJob;
 import edu.montana.csci.csci366.archivecat.archiver.jobs.DownloadJob;
 import edu.montana.csci.csci366.archivecat.archiver.runners.DownloadJobRunner;
-import edu.montana.csci.csci366.archivecat.archiver.runners.InThreadJobRunner;
+import edu.montana.csci.csci366.archivecat.archiver.runners.ThreadPoolJobRunner;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Archiver {
 
@@ -28,10 +29,10 @@ public class Archiver {
     }
 
     public Archiver(String url) throws Exception {
-        this(url, new InThreadJobRunner());
+        this(url, new ThreadPoolJobRunner());
     }
 
-    public void archive() throws IOException {
+    public void archive() throws Exception {
         LOGGER.info("Beginning archive of " + _url);
 
         // create a new archive for this
@@ -40,16 +41,18 @@ public class Archiver {
         // download the content
         var doc = Jsoup.connect(_url).get();
 
-        //TODO - iterate over all the images, links and javascript files and
-        // create download jobs for them
+        List<DownloadJob> downloadJobs = new LinkedList<>();
+
+        for (Element element : doc.getAllElements()) {
+            AbstractDownloadJob job = AbstractDownloadJob.getJobFor(element, _archive);
+            if (job != null) downloadJobs.add(job);
+        }
 
         // submit download jobs
         _jobExecutor.executeJobs(downloadJobs);
 
         // update DOM in the main thread (why?)
-        for (var downloadJob : downloadJobs) {
-            downloadJob.updateElement();
-        }
+        for (var downloadJob : downloadJobs) downloadJob.updateElement();
 
         // store to index.html
         archive.saveFile("index.html", doc.outerHtml().getBytes());
