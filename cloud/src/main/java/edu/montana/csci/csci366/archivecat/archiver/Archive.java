@@ -12,7 +12,7 @@ import java.util.Comparator;
 public class Archive {
     public static final byte[] EMPTY_BYTES = new byte[0];
 
-    public static final String ARCHIVE_ROOT = "archives";
+    public static final String ARCHIVE_ROOT = "archived";
     private final String _url;
     private final String _sha;
     private final Path _root;
@@ -39,7 +39,6 @@ public class Archive {
                 throw new RuntimeException(e);
             }
         }
-
     }
 
     public static byte[] getContent(String archivePath) throws IOException {
@@ -52,11 +51,22 @@ public class Archive {
     }
 
     public String computeSHA1(String url) {
-        // TODO - implement
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("SHA-1");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+        digest.update(url.getBytes());
+        BigInteger no = new BigInteger(1, digest.digest());
+        return String.format("%040x", no);
     }
 
     public String saveFile(String fileName, byte[] body) throws IOException {
-        // safe the content to the archive root, followed by the name of this archive folder, followed by the file name
+        String path = ARCHIVE_ROOT + "/" + _sha + "/" + fileName;
+        Path filePath = Path.of(path);
+        Files.write(filePath, body);
+        return path.replaceAll("archived", "archives");
     }
 
     public String getRoot() {

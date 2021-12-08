@@ -7,8 +7,6 @@ import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.HashMap;
 
 import static spark.Spark.*;
@@ -16,6 +14,8 @@ import static spark.Spark.*;
 public class Server {
 
     private static Logger LOGGER = LoggerFactory.getLogger(Server.class);
+    public static final int PORT = 8001;
+    public static final String LOCATION = "http://localhost:" + PORT;
 
     public static String renderTemplate(String index, Object... args) {
         HashMap<Object, Object> map = new HashMap<>();
@@ -30,7 +30,7 @@ public class Server {
 
     public static void main(String[] args) {
 
-        port(8001);
+        port(PORT);
 
         staticFiles.location("/public");
 

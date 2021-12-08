@@ -1,6 +1,5 @@
 package edu.montana.csci.csci366.archivecat.archiver.runners;
 
-import edu.montana.csci.csci366.archivecat.archiver.jobs.AbstractDownloadJob;
 import edu.montana.csci.csci366.archivecat.archiver.jobs.DownloadJob;
 
 import java.util.List;
