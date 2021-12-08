@@ -185,7 +185,7 @@ int add_ship_horizontal(player_info *player, int x, int y, int length) {
     player->ships |= mask;
     ++x;
     --length;
-    return add_ship_horizontal(player, x, y, length);
+    return add_ship_horizontal(player, x, y, length);//
 }
 
 int add_ship_vertical(player_info *player, int x, int y, int length) {
