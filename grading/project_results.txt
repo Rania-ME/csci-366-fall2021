@@ -102,10 +102,10 @@ With diff:
 +6                 
 +7         * * *   \n
 
-[  FAILED  ] repl_print_ships.print_ships (1 ms)
+[  FAILED  ] repl_print_ships.print_ships (0 ms)
 [ RUN      ] repl_print_ships.print_ship_status
 [       OK ] repl_print_ships.print_ship_status (0 ms)
-[----------] 2 tests from repl_print_ships (1 ms total)
+[----------] 2 tests from repl_print_ships (0 ms total)
 
 [----------] 2 tests from repl_print_hits
 [ RUN      ] repl_print_hits.print_hits
@@ -153,7 +153,7 @@ With diff:
 [----------] 2 tests from repl_print_hits (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 23 tests from 9 test suites ran. (1 ms total)
+[==========] 23 tests from 9 test suites ran. (0 ms total)
 [  PASSED  ] 20 tests.
 [  FAILED  ] 3 tests, listed below:
 [  FAILED  ] repl_print_ships.print_ships
