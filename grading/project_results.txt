@@ -128,7 +128,7 @@ With diff:
 +6                 
 +7                 \n
 
-[  FAILED  ] repl_print_hits.print_hits (0 ms)
+[  FAILED  ] repl_print_hits.print_hits (1 ms)
 [ RUN      ] repl_print_hits.print_miss
 /home/carson/Projects/msu/csci-366-fall2021/grading/scripts/repos/rania_ehsan/c/battlebit/googletest/repl.cpp:74: Failure
 Expected equality of these values:
@@ -150,10 +150,10 @@ With diff:
 +7 M               \n
 
 [  FAILED  ] repl_print_hits.print_miss (0 ms)
-[----------] 2 tests from repl_print_hits (0 ms total)
+[----------] 2 tests from repl_print_hits (1 ms total)
 
 [----------] Global test environment tear-down
-[==========] 23 tests from 9 test suites ran. (0 ms total)
+[==========] 23 tests from 9 test suites ran. (1 ms total)
 [  PASSED  ] 20 tests.
 [  FAILED  ] 3 tests, listed below:
 [  FAILED  ] repl_print_ships.print_ships
